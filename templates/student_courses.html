@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Student Courses</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='pages.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h2>Student Courses</h2>
+
+        <div class="icons">
+
+            <a href="/student_dashboard">
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Courses -->
+
+    <div class="container">
+
+        <div class="course-card">
+
+            <h3>Python Programming</h3>
+
+            <p>Learn Flask and MongoDB</p>
+
+        </div>
+
+        <div class="course-card">
+
+            <h3>Web Development</h3>
+
+            <p>HTML, CSS, JavaScript</p>
+
+        </div>
+
+        <div class="course-card">
+
+            <h3>Database Systems</h3>
+
+            <p>MongoDB & SQL Concepts</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

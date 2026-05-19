@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Teacher Panel</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='pages.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h2>Student Details</h2>
+
+        <div class="icons">
+
+            <a href="/teacher_dashboard">
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+<div class="container">
+
+    {% for student in students %}
+
+    <div class="class-card">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+        width="80">
+
+        <h3>{{ student.username }}</h3>
+
+        <!-- Course Details Hidden -->
+
+        <div class="course-details">
+
+            <p>
+                <strong>Course:</strong>
+                {{ student.course }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

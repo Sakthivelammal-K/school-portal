@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='dashboard.css') }}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h2>EduPortal</h2>
+
+        <div class="nav-icons">
+
+            <a href="#">
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-user"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-gear"></i>
+            </a>
+
+            <a href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Dashboard Content -->
+
+    <div class="container">
+
+        <div class="card">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+            class="profile-img">
+
+            <h1>Welcome {{ username }}</h1>
+
+            <p>
+                Welcome to the Student Dashboard
+            </p>
+<a href="/student_courses">
+
+    <button>
+        View Courses
+    </button>
+
+</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

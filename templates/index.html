@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Portal</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <h1 class="title">EduPortal</h1><br>
+    <p class="subtitle">Student & Teacher Login System</p><br>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="flash">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+
+        <!-- Student Login -->
+        <div class="card">
+
+            <h2>Student Login</h2>
+
+            <form action="/student_login" method="POST">
+
+                <input type="text" name="username" placeholder="Username" required>
+
+                <input type="password" name="password" placeholder="Password" required>
+
+                <button type="submit">Login</button>
+                
+                <p>Don't have an account?
+                <a href="/signup">Sign Up</a></p>
+
+            </form>
+
+            <h3>Student Sign Up</h3>
+
+            <form action="/student_signup" method="POST">
+
+                <input type="text" name="username" placeholder="New Username" required>
+
+                <input type="password" name="password" placeholder="New Password" required>
+
+                <button type="submit">Sign Up</button>
+
+            </form>
+
+        </div><br>
+
+        <!-- Teacher Login -->
+        <div class="card">
+
+            <h2>Teacher Login</h2>
+
+            <form action="/teacher_login" method="POST">
+
+                <input type="text" name="username" placeholder="Username" required>
+
+                <input type="password" name="password" placeholder="Password" required>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <h3>Teacher Sign Up</h3>
+
+            <form action="/teacher_signup" method="POST">
+
+                <input type="text" name="username" placeholder="New Username" required>
+
+                <input type="password" name="password" placeholder="New Password" required>
+
+                <button type="submit">Sign Up</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Forgot Password -->
+
+</div>
+
+</body>
+</html>
