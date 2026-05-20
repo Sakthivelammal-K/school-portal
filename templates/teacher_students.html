@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Students</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='teacher_modules.css') }}">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>Students List</h1>
+
+    <table>
+
+        <tr>
+
+            <th>Username</th>
+            <th>Email</th>
+
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td>{{ student.username }}</td>
+            <td>{{ student.email }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

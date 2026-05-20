@@ -2,7 +2,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Poppins,sans-serif;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
@@ -23,9 +23,10 @@ body{
     padding:30px 20px;
 }
 
-.sidebar h2{
+.logo h2{
     text-align:center;
     margin-bottom:40px;
+    font-size:28px;
 }
 
 .sidebar ul{
@@ -35,7 +36,7 @@ body{
 .sidebar ul li{
     padding:15px;
     margin-bottom:12px;
-    border-radius:12px;
+    border-radius:14px;
     cursor:pointer;
     transition:0.3s;
 }
@@ -54,12 +55,14 @@ body{
     color:white;
 }
 
-/* Main */
+/* Main Content */
 
 .main-content{
     flex:1;
     padding:35px;
 }
+
+/* Topbar */
 
 .topbar{
     display:flex;
@@ -68,35 +71,108 @@ body{
     margin-bottom:40px;
 }
 
-.topbar img{
-    width:60px;
-    border-radius:50%;
+.topbar h1{
+    font-size:34px;
+    color:#111827;
 }
 
-.cards{
+.topbar p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+.profile img{
+    width:60px;
+    border-radius:50%;
+    border:3px solid #2563eb;
+}
+
+/* Stats */
+
+.stats{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:25px;
+    margin-bottom:50px;
 }
 
-.card{
+.stat-card{
     background:white;
-    padding:30px;
+    padding:25px;
     border-radius:24px;
+    display:flex;
+    align-items:center;
+    gap:20px;
     box-shadow:0 10px 30px rgba(0,0,0,0.06);
     transition:0.3s;
 }
 
-.card:hover{
+.stat-card:hover{
     transform:translateY(-6px);
 }
 
-.card i{
+.stat-card i{
     font-size:40px;
     color:#2563eb;
-    margin-bottom:15px;
 }
 
-.card h2{
-    margin-bottom:10px;
+.stat-card h2{
+    font-size:30px;
+    margin-bottom:5px;
+}
+
+/* Actions */
+
+.section-header{
+    margin-bottom:25px;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.action-card{
+    background:white;
+    padding:35px;
+    border-radius:24px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.action-card:hover{
+    transform:translateY(-6px);
+}
+
+.action-card i{
+    font-size:45px;
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+.action-card h3{
+    color:#111827;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main-content{
+        width:100%;
+        padding:20px;
+    }
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
 }

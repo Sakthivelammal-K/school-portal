@@ -1,72 +1,239 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
     <title>Teacher Dashboard</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='dashboard.css') }}">
+    href="{{ url_for('static', filename='teacher_dashboard.css') }}">
 
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="dashboard">
 
-    <!-- Navbar -->
+    <!-- SIDEBAR -->
 
-    <div class="navbar">
+    <div class="sidebar">
 
-        <h2>EduPortal</h2>
+        <div class="logo">
 
-        <div class="nav-icons">
-
-            <a href="#">
-                <i class="fa-solid fa-house"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-user"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-gear"></i>
-            </a>
-
-            <a href="/logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
+            <h2>EduPortal</h2>
 
         </div>
 
+        <ul>
+
+            <a href="/teacher_dashboard">
+
+                <li class="active">
+
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+
+                </li>
+
+            </a>
+
+            <a href="/teacher_students">
+
+                <li>
+
+                    <i class="fa-solid fa-users"></i>
+                    Students
+
+                </li>
+
+            </a>
+
+            <a href="/teacher_classes">
+
+                <li>
+
+                    <i class="fa-solid fa-book"></i>
+                    Classes
+
+                </li>
+
+            </a>
+
+            <a href="/teacher_assignments">
+
+                <li>
+
+                    <i class="fa-solid fa-file"></i>
+                    Assignments
+
+                </li>
+
+            </a>
+
+            <a href="/teacher_reports">
+
+                <li>
+
+                    <i class="fa-solid fa-chart-line"></i>
+                    Reports
+
+                </li>
+
+            </a>
+
+            <a href="/logout">
+
+                <li>
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+
+                </li>
+
+            </a>
+
+        </ul>
+
     </div>
 
-    <!-- Dashboard Content -->
+    <!-- MAIN CONTENT -->
 
-    <div class="container">
+    <div class="main-content">
 
-        <div class="card">
+        <!-- TOPBAR -->
 
-            <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
-            class="profile-img">
+        <div class="topbar">
 
-            <h1>Welcome {{ username }}</h1>
+            <div>
 
-            <p>
-                Welcome to the Teacher Dashboard
-            </p>
+                <h1>
+                    Welcome, {{ username }}
+                </h1>
 
-<a href="/teacher_classes">
+                <p>
+                    Manage students and classes professionally
+                </p>
 
-    <button>
-        View Student Details
-    </button>
+            </div>
 
-</a>
+            <div class="profile">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png">
+
+            </div>
+
+        </div>
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <div>
+
+                    <h2>120</h2>
+
+                    <p>Total Students</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-book"></i>
+
+                <div>
+
+                    <h2>8</h2>
+
+                    <p>Classes</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-file"></i>
+
+                <div>
+
+                    <h2>15</h2>
+
+                    <p>Assignments</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <div>
+
+                    <h2>95%</h2>
+
+                    <p>Performance</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="actions-section">
+
+            <div class="section-header">
+
+                <h2>Quick Actions</h2>
+
+            </div>
+
+            <div class="actions">
+
+                <div class="action-card">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <h3>Add Student</h3>
+
+                </div>
+
+                <div class="action-card">
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    <h3>Create Class</h3>
+
+                </div>
+
+                <div class="action-card">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    <h3>Upload Assignment</h3>
+
+                </div>
+
+            </div>
 
         </div>
 

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash
@@ -103,12 +104,11 @@ def student_login():
     user = students.find_one({"username": username})
 
     if user and check_password_hash(user['password'], password):
-
         session['student'] = username
-
         return redirect('/student_dashboard')
 
-    return "Invalid Student Login"
+    flash("Invalid student username or password", "error")
+    return redirect('/')
 
 # ---------------- TEACHER LOGIN ----------------
 @app.route('/teacher_login', methods=['POST'])
@@ -117,21 +117,13 @@ def teacher_login():
     username = request.form['username']
     password = request.form['password']
 
-    teacher = teachers.find_one({
+    teacher = teachers.find_one({"username": username})
 
-        "username": username
-
-    })
-
-    if teacher and check_password_hash(
-        teacher['password'],
-        password
-    ):
-
+    if teacher and check_password_hash(teacher['password'], password):
         session['teacher'] = username
-
         return redirect('/teacher_dashboard')
 
+    flash("Invalid teacher username or password", "error")
     return redirect('/')
 
 # ---------------- TEACHER DASHBOARD ----------------
@@ -232,36 +224,28 @@ def settings():
 @app.route('/update_settings', methods=['POST'])
 def update_settings():
 
-    if 'student' in session:
+    if 'student' not in session:
+        return redirect('/')
 
-        old_username = session['student']
+    old_username = session['student']
 
-        new_username = request.form['new_username']
-        new_password = request.form['new_password']
+    new_username = request.form['new_username']
+    new_password = request.form['new_password']
 
-        hashed_password = generate_password_hash(new_password)
+    hashed_password = generate_password_hash(new_password)
 
-        # Update student data
-        students.update_one(
-
-            {"username": old_username},
-
-            {
-                "$set": {
-                    "username": new_username,
-                    "password": hashed_password
-                }
+    students.update_one(
+        {"username": old_username},
+        {
+            "$set": {
+                "username": new_username,
+                "password": hashed_password
             }
+        }
+    )
 
-        )
-
-        # Update session
-        session['student'] = new_username
-
-        return redirect('/settings')
-
-    return redirect('/')
-
+    session['student'] = new_username
+    return redirect('/settings')
 # ---------------- STUDENT COURSES PAGE ----------------
 @app.route('/student_courses')
 def student_courses():
@@ -275,9 +259,6 @@ def student_courses():
 
     return redirect('/')
 
-# ---------------- TEACHER CLASSES PAGE ----------------
-@app.route('/teacher_classes')
-def teacher_classes():
 
     if 'teacher' in session:
 
@@ -296,40 +277,65 @@ def logout():
 
     return redirect('/')
 
+# ---------------- TEACHER STUDENTS ----------------
+@app.route('/teacher_students')
+def teacher_students():
+
+    if 'teacher' in session:
+
+        all_students = students.find()
+
+        return render_template(
+            'teacher_students.html',
+            students=all_students,
+            username=session['teacher']
+        )
+
+    return redirect('/')
+
+
+# ---------------- TEACHER CLASSES ----------------
+@app.route('/teacher_classes')
+def teacher_classes():
+
+    if 'teacher' in session:
+
+        return render_template(
+            'teacher_classes.html',
+            username=session['teacher']
+        )
+
+    return redirect('/')
+
+
+# ---------------- TEACHER ASSIGNMENTS ----------------
+@app.route('/teacher_assignments')
+def teacher_assignments():
+
+    if 'teacher' in session:
+
+        return render_template(
+            'teacher_assignments.html',
+            username=session['teacher']
+        )
+
+    return redirect('/')
+
+
+# ---------------- TEACHER REPORTS ----------------
+@app.route('/teacher_reports')
+def teacher_reports():
+
+    if 'teacher' in session:
+
+        return render_template(
+            'teacher_reports.html',
+            username=session['teacher']
+        )
+
+    return redirect('/')
+
 # ---------------- RUN ----------------
 if __name__ == '__main__':
     app.run(debug=True)
 
-# ---------------- UPDATE SETTINGS ----------------
-@app.route('/update_settings', methods=['POST'])
-def update_settings():
-
-    if 'student' in session:
-
-        old_username = session['student']
-
-        new_username = request.form['new_username']
-        new_password = request.form['new_password']
-
-        hashed_password = generate_password_hash(new_password)
-
-        # Update student data
-        students.update_one(
-
-            {"username": old_username},
-
-            {
-                "$set": {
-                    "username": new_username,
-                    "password": hashed_password
-                }
-            }
-
-        )
-
-        # Update session
-        session['student'] = new_username
-
-        return redirect('/settings')
-
-    return redirect('/')
