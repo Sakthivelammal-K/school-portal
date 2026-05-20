@@ -163,10 +163,13 @@
 
 <script>
 
-function showStudent() {
+function showStudent(){
 
-    document.getElementById("studentForm").style.display = "block";
-    document.getElementById("teacherForm").style.display = "none";
+    document.getElementById("studentForm")
+    .style.display = "block";
+
+    document.getElementById("teacherForm")
+    .style.display = "none";
 
     document.querySelectorAll(".tab-btn")[0]
     .classList.add("active");
@@ -175,10 +178,13 @@ function showStudent() {
     .classList.remove("active");
 }
 
-function showTeacher() {
+function showTeacher(){
 
-    document.getElementById("teacherForm").style.display = "block";
-    document.getElementById("studentForm").style.display = "none";
+    document.getElementById("teacherForm")
+    .style.display = "block";
+
+    document.getElementById("studentForm")
+    .style.display = "none";
 
     document.querySelectorAll(".tab-btn")[1]
     .classList.add("active");

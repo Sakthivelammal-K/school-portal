@@ -1,144 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="tabs">
 
-<head>
+    <button class="tab-btn active"
+    onclick="showStudent()">
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
+        Student
 
-    <title>Signup - EduPortal</title>
+    </button>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='signup.css') }}">
+    <button class="tab-btn"
+    onclick="showTeacher()">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+        Teacher
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-</head>
-
-<body>
-
-<div class="container">
-
-    <!-- Left Side -->
-
-    <div class="left-side">
-
-        <div class="overlay"></div>
-
-        <div class="content">
-
-            <h1>Create Account</h1>
-
-            <p>
-                Join EduPortal and continue your learning journey
-            </p>
-
-        </div>
-
-    </div>
-
-    <!-- Right Side -->
-
-    <div class="right-side">
-
-        <div class="signup-card">
-
-            <h2>Signup</h2>
-
-            <p class="subtitle">
-                Create your student account
-            </p>
-
-            <form action="/student_signup"
-            method="POST">
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-user"></i>
-
-                    <input type="text"
-                    name="username"
-                    placeholder="Username"
-                    required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-envelope"></i>
-
-                    <input type="email"
-                    name="email"
-                    placeholder="Email"
-                    required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-lock"></i>
-
-                    <input type="password"
-                    name="password"
-                    placeholder="Password"
-                    required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-book"></i>
-
-                    <select name="course" required>
-
-                        <option value="">
-                            Select Course
-                        </option>
-
-                        <option>
-                            Python Programming
-                        </option>
-
-                        <option>
-                            Web Development
-                        </option>
-
-                        <option>
-                            Database Systems
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <button type="submit"
-                class="signup-btn">
-
-                    Create Account
-
-                </button>
-
-            </form>
-
-            <div class="bottom-links">
-
-                <p>
-                    Already have an account?
-                    <a href="/">Login</a>
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
+    </button>
 
 </div>
 
-</body>
-</html>
+<!-- STUDENT SIGNUP -->
+
+<form id="studentForm"
+action="/student_signup"
+method="POST">
+
+    <div class="input-group">
+
+        <input type="text"
+        name="username"
+        placeholder="Student Username"
+        required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="email"
+        name="email"
+        placeholder="Student Email"
+        required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="password"
+        name="password"
+        placeholder="Password"
+        required>
+
+    </div>
+
+    <button type="submit"
+    class="signup-btn">
+
+        Signup as Student
+
+    </button>
+
+</form>
+
+<!-- TEACHER SIGNUP -->
+
+<form id="teacherForm"
+action="/teacher_signup"
+method="POST"
+style="display:none;">
+
+    <div class="input-group">
+
+        <input type="text"
+        name="username"
+        placeholder="Teacher Username"
+        required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="email"
+        name="email"
+        placeholder="Teacher Email"
+        required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="password"
+        name="password"
+        placeholder="Password"
+        required>
+
+    </div>
+
+    <button type="submit"
+    class="signup-btn">
+
+        Signup as Teacher
+
+    </button>
+
+</form>

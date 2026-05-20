@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.secret_key = "secret123"
@@ -71,28 +72,25 @@ def student_signup():
 
     return redirect('/student_dashboard')
 # ---------------- TEACHER SIGNUP ----------------
+# ---------------- TEACHER SIGNUP ----------------
 @app.route('/teacher_signup', methods=['POST'])
 def teacher_signup():
 
     username = request.form['username']
+    email = request.form['email']
     password = request.form['password']
-
-    existing = teachers.find_one({"username": username})
-
-    if existing:
-        return "Teacher already exists"
 
     hashed_password = generate_password_hash(password)
 
     teachers.insert_one({
+
         "username": username,
+        "email": email,
         "password": hashed_password
+
     })
 
-    session['teacher'] = username
-
-    return redirect('/teacher_dashboard')
-
+    return redirect('/')
 # ---------------- STUDENT LOGIN ----------------
 @app.route('/student_login', methods=['POST'])
 def student_login():
@@ -109,7 +107,6 @@ def student_login():
         return redirect('/student_dashboard')
 
     return "Invalid Student Login"
-
 # ---------------- TEACHER LOGIN ----------------
 @app.route('/teacher_login', methods=['POST'])
 def teacher_login():
@@ -117,15 +114,22 @@ def teacher_login():
     username = request.form['username']
     password = request.form['password']
 
-    user = teachers.find_one({"username": username})
+    teacher = teachers.find_one({
 
-    if user and check_password_hash(user['password'], password):
+        "username": username
+
+    })
+
+    if teacher and check_password_hash(
+        teacher['password'],
+        password
+    ):
 
         session['teacher'] = username
 
         return redirect('/teacher_dashboard')
 
-    return "Invalid Teacher Login"
+    return redirect('/')
 
 @app.route('/student_dashboard')
 def student_dashboard():
@@ -221,7 +225,7 @@ def update_settings():
 
         hashed_password = generate_password_hash(new_password)
 
-        # Update MongoDB
+        # Update student data
         students.update_one(
 
             {"username": old_username},
@@ -241,6 +245,7 @@ def update_settings():
         return redirect('/settings')
 
     return redirect('/')
+
 # ---------------- STUDENT COURSES PAGE ----------------
 @app.route('/student_courses')
 def student_courses():
@@ -279,3 +284,36 @@ def logout():
 if __name__ == '__main__':
     app.run(debug=True)
 
+# ---------------- UPDATE SETTINGS ----------------
+@app.route('/update_settings', methods=['POST'])
+def update_settings():
+
+    if 'student' in session:
+
+        old_username = session['student']
+
+        new_username = request.form['new_username']
+        new_password = request.form['new_password']
+
+        hashed_password = generate_password_hash(new_password)
+
+        # Update student data
+        students.update_one(
+
+            {"username": old_username},
+
+            {
+                "$set": {
+                    "username": new_username,
+                    "password": hashed_password
+                }
+            }
+
+        )
+
+        # Update session
+        session['student'] = new_username
+
+        return redirect('/settings')
+
+    return redirect('/')
