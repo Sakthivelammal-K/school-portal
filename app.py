@@ -71,7 +71,7 @@ def student_signup():
     session['student'] = username
 
     return redirect('/student_dashboard')
-# ---------------- TEACHER SIGNUP ----------------
+
 # ---------------- TEACHER SIGNUP ----------------
 @app.route('/teacher_signup', methods=['POST'])
 def teacher_signup():
@@ -90,7 +90,9 @@ def teacher_signup():
 
     })
 
-    return redirect('/')
+    session['teacher'] = username
+
+    return redirect('/teacher_dashboard')
 # ---------------- STUDENT LOGIN ----------------
 @app.route('/student_login', methods=['POST'])
 def student_login():
@@ -107,6 +109,7 @@ def student_login():
         return redirect('/student_dashboard')
 
     return "Invalid Student Login"
+
 # ---------------- TEACHER LOGIN ----------------
 @app.route('/teacher_login', methods=['POST'])
 def teacher_login():
@@ -128,6 +131,19 @@ def teacher_login():
         session['teacher'] = username
 
         return redirect('/teacher_dashboard')
+
+    return redirect('/')
+
+# ---------------- TEACHER DASHBOARD ----------------
+@app.route('/teacher_dashboard')
+def teacher_dashboard():
+
+    if 'teacher' in session:
+
+        return render_template(
+            'teacher_dashboard.html',
+            username=session['teacher']
+        )
 
     return redirect('/')
 

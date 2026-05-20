@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-    <title>Teacher Panel</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='pages.css') }}">
+    href="{{ url_for('static', filename='teacher_dashboard.css') }}">
 
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -14,53 +20,135 @@
 
 <body>
 
-<div class="overlay">
+<div class="dashboard">
 
-    <!-- Navbar -->
+    <!-- SIDEBAR -->
 
-    <div class="navbar">
+    <div class="sidebar">
 
-        <h2>Student Details</h2>
+        <h2>EduPortal</h2>
 
-        <div class="icons">
+        <ul>
 
-            <a href="/teacher_dashboard">
+            <li class="active">
+
                 <i class="fa-solid fa-house"></i>
-            </a>
+                Dashboard
+
+            </li>
+
+            <li>
+
+                <i class="fa-solid fa-users"></i>
+                Students
+
+            </li>
+
+            <li>
+
+                <i class="fa-solid fa-book"></i>
+                Classes
+
+            </li>
+
+            <li>
+
+                <i class="fa-solid fa-file"></i>
+                Assignments
+
+            </li>
+
+            <li>
+
+                <i class="fa-solid fa-chart-line"></i>
+                Reports
+
+            </li>
 
             <a href="/logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <li>
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+
+                </li>
+
             </a>
 
-        </div>
+        </ul>
 
     </div>
 
-<div class="container">
+    <!-- MAIN -->
 
-    {% for student in students %}
+    <div class="main-content">
 
-    <div class="class-card">
+        <div class="topbar">
 
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-        width="80">
+            <div>
 
-        <h3>{{ student.username }}</h3>
+                <h1>
+                    Welcome, {{ username }}
+                </h1>
 
-        <!-- Course Details Hidden -->
+                <p>
+                    Teacher Management Dashboard
+                </p>
 
-        <div class="course-details">
+            </div>
 
-            <p>
-                <strong>Course:</strong>
-                {{ student.course }}
-            </p>
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png">
+
+        </div>
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h2>120</h2>
+
+                <p>Total Students</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-book"></i>
+
+                <h2>8</h2>
+
+                <p>Classes</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-file"></i>
+
+                <h2>15</h2>
+
+                <p>Assignments</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h2>95%</h2>
+
+                <p>Performance</p>
+
+            </div>
 
         </div>
 
     </div>
-
-    {% endfor %}
 
 </div>
 
