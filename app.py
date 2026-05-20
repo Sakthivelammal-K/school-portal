@@ -17,6 +17,28 @@ teachers = db["teachers"]
 def login_page():
     return render_template("login.html")
 
+# ---------------- FORGOT PASSWORD PAGE ----------------
+@app.route('/forgot_password')
+def forgot_password():
+
+    return render_template('forgot_password.html')
+
+# ---------------- RESET PASSWORD ----------------
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+
+    username = request.form['username']
+    new_password = request.form['new_password']
+
+    hashed_password = generate_password_hash(new_password)
+
+    # Update student password
+    students.update_one(
+        {"username": username},
+        {"$set": {"password": hashed_password}}
+    )
+
+    return redirect('/')
 # ---------------- SIGNUP PAGE ----------------
 @app.route('/signup')
 def signup_page():
@@ -105,17 +127,14 @@ def teacher_login():
 
     return "Invalid Teacher Login"
 
-# ---------------- STUDENT DASHBOARD ----------------
 @app.route('/student_dashboard')
 def student_dashboard():
 
     if 'student' in session:
 
-        username = session['student']
-
         return render_template(
-            "student_dashboard.html",
-            username=username
+            'student_dashboard.html',
+            username=session['student']
         )
 
     return redirect('/')
@@ -156,3 +175,4 @@ def logout():
 # ---------------- RUN ----------------
 if __name__ == '__main__':
     app.run(debug=True)
+

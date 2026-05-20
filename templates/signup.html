@@ -1,91 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-    <title>Signup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Signup - EduPortal</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
+    href="{{ url_for('static', filename='signup.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="container">
 
-    <div class="box">
+    <!-- Left Side -->
 
-        <h1>Create Account</h1>
+    <div class="left-side">
 
-        <!-- Student Signup -->
-        <form action="/student_signup" method="POST">
+        <div class="overlay"></div>
 
-            <h2>Student Signup</h2>
+        <div class="content">
 
-            <input type="text"
-            name="username"
-            placeholder="Username"
-            required>
+            <h1>Create Account</h1>
 
-            <input type="password"
-            name="password"
-            placeholder="Password"
-            required>
+            <p>
+                Join EduPortal and continue your learning journey
+            </p>
 
-            <select name="course" required>
+        </div>
 
-    <option value="">Select Course</option>
+    </div>
 
-    <option value="Python Programming">
-        Python Programming
-    </option>
+    <!-- Right Side -->
 
-    <option value="Web Development">
-        Web Development
-    </option>
+    <div class="right-side">
 
-    <option value="Database Systems">
-        Database Systems
-    </option>
+        <div class="signup-card">
 
-    <option value="Artificial Intelligence">
-        Artificial Intelligence
-    </option>
+            <h2>Signup</h2>
 
-</select>
+            <p class="subtitle">
+                Create your student account
+            </p>
 
-            <button type="submit">Signup</button>
+            <form action="/student_signup"
+            method="POST">
 
-        </form>
+                <div class="input-group">
 
-        <hr>
+                    <i class="fa-solid fa-user"></i>
 
-        <!-- Teacher Signup -->
-        <form action="/teacher_signup" method="POST">
+                    <input type="text"
+                    name="username"
+                    placeholder="Username"
+                    required>
 
-            <h2>Teacher Signup</h2>
+                </div>
 
-            <input type="text"
-            name="username"
-            placeholder="Username"
-            required>
+                <div class="input-group">
 
-            <input type="password"
-            name="password"
-            placeholder="Password"
-            required>
+                    <i class="fa-solid fa-envelope"></i>
 
-            <button type="submit">Signup</button>
+                    <input type="email"
+                    name="email"
+                    placeholder="Email"
+                    required>
 
-        </form>
+                </div>
 
-        <p class="signup-text">
+                <div class="input-group">
 
-            Already have an account ?
+                    <i class="fa-solid fa-lock"></i>
 
-            <a href="/">Login</a>
+                    <input type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
 
-        </p>
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-book"></i>
+
+                    <select name="course" required>
+
+                        <option value="">
+                            Select Course
+                        </option>
+
+                        <option>
+                            Python Programming
+                        </option>
+
+                        <option>
+                            Web Development
+                        </option>
+
+                        <option>
+                            Database Systems
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                class="signup-btn">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <div class="bottom-links">
+
+                <p>
+                    Already have an account?
+                    <a href="/">Login</a>
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 

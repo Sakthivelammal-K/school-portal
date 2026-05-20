@@ -1,73 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EduPortal Login</title>
 
     <link rel="stylesheet"
     href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="main-container">
 
-    <div class="box">
+    <!-- Left Side -->
 
-        <h1>Login</h1>
+    <div class="left-section">
 
-        <!-- Student Login -->
-        <form action="/student_login" method="POST">
+        <div class="overlay"></div>
 
-            <h2>Student Login</h2>
+        <div class="content">
 
-            <input type="text"
-            name="username"
-            placeholder="Username"
-            required>
+            <h1>Welcome to EduPortal</h1>
 
-            <input type="password"
-            name="password"
-            placeholder="Password"
-            required>
+            <p>
+                Smart Student & Teacher Management System
+            </p>
 
-            <button type="submit">Login</button>
+        </div>
 
-        </form>
+    </div>
 
-        <hr>
+    <!-- Right Side -->
 
-        <!-- Teacher Login -->
-        <form action="/teacher_login" method="POST">
+    <div class="right-section">
 
-            <h2>Teacher Login</h2>
+        <div class="login-card">
 
-            <input type="text"
-            name="username"
-            placeholder="Username"
-            required>
+            <h2>Login</h2>
 
-            <input type="password"
-            name="password"
-            placeholder="Password"
-            required>
+            <p class="subtitle">
+                Continue your learning journey
+            </p>
 
-            <button type="submit">Login</button>
+            <!-- Tabs -->
 
-        </form>
+            <div class="tabs">
 
-        <p class="signup-text">
+                <button class="tab-btn active"
+                onclick="showStudent()">
+                    Student
+                </button>
 
-            Don't have an account ?
+                <button class="tab-btn"
+                onclick="showTeacher()">
+                    Teacher
+                </button>
 
-            <a href="/signup">Signup</a>
+            </div>
 
-        </p>
+            <!-- Student Login -->
+
+            <form id="studentForm"
+            action="/student_login"
+            method="POST"
+            autocomplete="off">
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input type="text"
+                    name="username"
+                    placeholder="Student Username"
+                    required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+                </div>
+
+                <button type="submit"
+                class="login-btn">
+                    Login as Student
+                </button>
+
+            </form>
+
+            <!-- Teacher Login -->
+
+            <form id="teacherForm"
+            action="/teacher_login"
+            method="POST"
+            style="display:none;"
+            autocomplete="off">
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-user-tie"></i>
+
+                    <input type="text"
+                    name="username"
+                    placeholder="Teacher Username"
+                    required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+                </div>
+
+                <button type="submit"
+                class="login-btn">
+                    Login as Teacher
+                </button>
+
+            </form>
+
+            <div class="bottom-links">
+
+                <a href="/forgot_password">
+                    Forgot Password?
+                </a>
+
+                <p>
+                    Don't have an account?
+                    <a href="/signup">Signup</a>
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+<script>
+
+function showStudent() {
+
+    document.getElementById("studentForm").style.display = "block";
+    document.getElementById("teacherForm").style.display = "none";
+
+    document.querySelectorAll(".tab-btn")[0]
+    .classList.add("active");
+
+    document.querySelectorAll(".tab-btn")[1]
+    .classList.remove("active");
+}
+
+function showTeacher() {
+
+    document.getElementById("teacherForm").style.display = "block";
+    document.getElementById("studentForm").style.display = "none";
+
+    document.querySelectorAll(".tab-btn")[1]
+    .classList.add("active");
+
+    document.querySelectorAll(".tab-btn")[0]
+    .classList.remove("active");
+}
+
+</script>
 
 </body>
 </html>

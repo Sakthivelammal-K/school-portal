@@ -1,0 +1,52 @@
+body{
+    margin:0;
+    font-family:Poppins,sans-serif;
+    background:#f4f7fc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.forgot-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    width:350px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.forgot-card h2{
+    margin-bottom:15px;
+}
+
+.forgot-card p{
+    color:gray;
+    margin-bottom:25px;
+}
+
+.forgot-card input{
+    width:100%;
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+
+.forgot-card button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.forgot-card a{
+    display:block;
+    margin-top:20px;
+    color:#2563eb;
+    text-decoration:none;
+}

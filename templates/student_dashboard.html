@@ -1,71 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
     <title>Student Dashboard</title>
 
     <link rel="stylesheet"
     href="{{ url_for('static', filename='dashboard.css') }}">
 
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="dashboard">
 
-    <!-- Navbar -->
+    <!-- SIDEBAR -->
 
-    <div class="navbar">
+    <div class="sidebar">
 
-        <h2>EduPortal</h2>
+        <div class="logo">
 
-        <div class="nav-icons">
-
-            <a href="#">
-                <i class="fa-solid fa-house"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-user"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-gear"></i>
-            </a>
-
-            <a href="/logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
+            <h2>EduPortal</h2>
 
         </div>
 
+<ul>
+
+    <a href="/student_dashboard">
+
+        <li class="active">
+
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+
+        </li>
+
+    </a>
+
+    <a href="/courses">
+
+        <li>
+
+            <i class="fa-solid fa-book"></i>
+            Courses
+
+        </li>
+
+    </a>
+
+    <a href="/attendance">
+
+        <li>
+
+            <i class="fa-solid fa-calendar-check"></i>
+            Attendance
+
+        </li>
+
+    </a>
+
+    <a href="/assignments">
+
+        <li>
+
+            <i class="fa-solid fa-file"></i>
+            Assignments
+
+        </li>
+
+    </a>
+
+    <a href="/progress">
+
+        <li>
+
+            <i class="fa-solid fa-chart-line"></i>
+            Progress
+
+        </li>
+
+    </a>
+
+    <a href="/settings">
+
+        <li>
+
+            <i class="fa-solid fa-gear"></i>
+            Settings
+
+        </li>
+
+    </a>
+
+    <a href="/logout">
+
+        <li>
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+
+        </li>
+
+    </a>
+
+</ul>
+
     </div>
 
-    <!-- Dashboard Content -->
+    <!-- MAIN CONTENT -->
 
-    <div class="container">
+    <div class="main-content">
 
-        <div class="card">
+        <!-- TOPBAR -->
 
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-            class="profile-img">
+        <div class="topbar">
 
-            <h1>Welcome {{ username }}</h1>
+            <div>
 
-            <p>
-                Welcome to the Student Dashboard
-            </p>
-<a href="/student_courses">
+                <h1>
+                    Welcome Back, {{ username }}
+                </h1>
 
-    <button>
-        View Courses
-    </button>
+                <p>
+                    Continue your learning journey 🚀
+                </p>
 
-</a>
+            </div>
+
+            <div class="profile">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+            </div>
+
+        </div>
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <div>
+
+                    <h2>5</h2>
+
+                    <p>Courses</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <div>
+
+                    <h2>92%</h2>
+
+                    <p>Attendance</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-file"></i>
+
+                <div>
+
+                    <h2>12</h2>
+
+                    <p>Assignments</p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <div>
+
+                    <h2>85%</h2>
+
+                    <p>Progress</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- COURSE SECTION -->
+
+        <div class="courses-section">
+
+            <div class="section-header">
+
+                <h2>My Courses</h2>
+
+                <button>View All</button>
+
+            </div>
+
+            <div class="courses">
+
+                <div class="course-card">
+
+                    <h3>Python Programming</h3>
+
+                    <p>Flask + MongoDB Full Stack</p>
+
+                    <div class="progress-bar">
+
+                        <div class="progress"></div>
+
+                    </div>
+
+                    <span>75% Completed</span>
+
+                </div>
+
+                <div class="course-card">
+
+                    <h3>Web Development</h3>
+
+                    <p>HTML, CSS, JavaScript</p>
+
+                    <div class="progress-bar">
+
+                        <div class="progress progress2"></div>
+
+                    </div>
+
+                    <span>60% Completed</span>
+
+                </div>
+
+                <div class="course-card">
+
+                    <h3>Database Systems</h3>
+
+                    <p>MongoDB & NoSQL</p>
+
+                    <div class="progress-bar">
+
+                        <div class="progress progress3"></div>
+
+                    </div>
+
+                    <span>90% Completed</span>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
