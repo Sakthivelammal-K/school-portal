@@ -18,17 +18,26 @@
 
     <div class="settings-box">
 
-        <input type="text"
-        placeholder="Change Username">
+        <form action="/update_settings"
+        method="POST">
 
-        <input type="password"
-        placeholder="Change Password">
+            <input type="text"
+            name="new_username"
+            placeholder="Change Username"
+            required>
 
-        <button>
+            <input type="password"
+            name="new_password"
+            placeholder="Change Password"
+            required>
 
-            Save Changes
+            <button type="submit">
 
-        </button>
+                Save Changes
+
+            </button>
+
+        </form>
 
     </div>
 

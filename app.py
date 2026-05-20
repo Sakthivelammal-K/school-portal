@@ -138,6 +138,109 @@ def student_dashboard():
         )
 
     return redirect('/')
+
+# ---------------- COURSES PAGE ----------------
+@app.route('/courses')
+def courses():
+
+    if 'student' in session:
+
+        return render_template(
+            'courses.html',
+            username=session['student']
+        )
+
+    return redirect('/')
+
+
+# ---------------- ATTENDANCE PAGE ----------------
+@app.route('/attendance')
+def attendance():
+
+    if 'student' in session:
+
+        return render_template(
+            'attendance.html',
+            username=session['student']
+        )
+
+    return redirect('/')
+
+
+# ---------------- ASSIGNMENTS PAGE ----------------
+@app.route('/assignments')
+def assignments():
+
+    if 'student' in session:
+
+        return render_template(
+            'assignments.html',
+            username=session['student']
+        )
+
+    return redirect('/')
+
+
+# ---------------- PROGRESS PAGE ----------------
+@app.route('/progress')
+def progress():
+
+    if 'student' in session:
+
+        return render_template(
+            'progress.html',
+            username=session['student']
+        )
+
+    return redirect('/')
+
+
+# ---------------- SETTINGS PAGE ----------------
+@app.route('/settings')
+def settings():
+
+    if 'student' in session:
+
+        return render_template(
+            'settings.html',
+            username=session['student']
+        )
+
+    return redirect('/')
+
+# ---------------- UPDATE SETTINGS ----------------
+@app.route('/update_settings', methods=['POST'])
+def update_settings():
+
+    if 'student' in session:
+
+        old_username = session['student']
+
+        new_username = request.form['new_username']
+        new_password = request.form['new_password']
+
+        hashed_password = generate_password_hash(new_password)
+
+        # Update MongoDB
+        students.update_one(
+
+            {"username": old_username},
+
+            {
+                "$set": {
+                    "username": new_username,
+                    "password": hashed_password
+                }
+            }
+
+        )
+
+        # Update session
+        session['student'] = new_username
+
+        return redirect('/settings')
+
+    return redirect('/')
 # ---------------- STUDENT COURSES PAGE ----------------
 @app.route('/student_courses')
 def student_courses():
