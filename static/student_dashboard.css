@@ -1,15 +1,84 @@
-
-.dashboard-content{
-    padding: 10px 5px;
+/* =========================
+   GLOBAL RESET
+========================= */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* HEADER STYLE */
-.page-title{
+/* =========================
+   LAYOUT
+========================= */
+body{
+    background: #f5f7fb;
+}
+
+.dashboard{
+    display: flex;
+}
+
+/* =========================
+   SIDEBAR (DO NOT CHANGE HTML)
+========================= */
+.sidebar{
+    width: 240px;
+    height: 100vh;
+    background: #111827;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+}
+
+.sidebar .logo h2{
+    font-size: 20px;
     margin-bottom: 25px;
 }
 
+.sidebar ul{
+    list-style: none;
+}
+
+.sidebar ul a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sidebar ul li{
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active{
+    background: #2563eb;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.main-content{
+    margin-left: 240px;
+    padding: 25px;
+    width: 100%;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
 .page-title h2{
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     color: #111827;
 }
@@ -17,22 +86,23 @@
 .page-title p{
     color: #6b7280;
     margin-top: 5px;
-    font-size: 15px;
 }
 
-/* STATS CARDS */
+/* =========================
+   STATS SECTION
+========================= */
 .stats{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
-    margin-bottom: 30px;
+    margin: 20px 0;
 }
 
 .stat-card{
     background: white;
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -40,11 +110,12 @@
 }
 
 .stat-card:hover{
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .stat-card i{
-    font-size: 28px;
+    font-size: 22px;
     color: #2563eb;
     background: rgba(37,99,235,0.1);
     padding: 12px;
@@ -52,7 +123,7 @@
 }
 
 .stat-card h2{
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 3px;
 }
 
@@ -61,34 +132,98 @@
     font-size: 14px;
 }
 
-/* RECENT SECTION */
-.recent-section h2{
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #111827;
+/* =========================
+   CARDS (COURSES / MODULES)
+========================= */
+.course-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.course-box{
+.course-card{
     background: white;
     padding: 18px;
     border-radius: 14px;
-    margin-bottom: 15px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
     transition: 0.3s;
 }
 
-.course-box:hover{
-    transform: translateY(-3px);
+.course-card:hover{
+    transform: translateY(-4px);
 }
 
-.course-box h3{
-    margin-bottom: 6px;
+/* =========================
+   COURSE BOX (LIST VIEW)
+========================= */
+.course-box{
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1, h2, h3{
     color: #111827;
 }
 
-.course-box p{
-    color: #6b7280;
-    font-size: 14px;
-    line-height: 1.5;
+/* =========================
+   BUTTONS (GLOBAL)
+========================= */
+button{
+    cursor: pointer;
+    border: none;
 }
 
+/* PRIMARY BUTTON */
+.btn-primary{
+    background: #2563eb;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover{
+    background: #1d4ed8;
+}
+
+/* DANGER BUTTON */
+.btn-danger{
+    background: #ef4444;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-top: 8px;
+}
+
+.btn-danger:hover{
+    background: #dc2626;
+}
+
+/* =========================
+   TOPBAR (IF USED)
+========================= */
+.topbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width: 768px){
+    .sidebar{
+        width: 70px;
+    }
+
+    .main-content{
+        margin-left: 70px;
+    }
+}

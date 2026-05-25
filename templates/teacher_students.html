@@ -23,12 +23,15 @@
         <tr>
             <td><b>{{ student.username }}</b></td>
             <td>
-                {% if student.course %}
-                    {{ student.course }}
-                {% else %}
-                    <span style="color: gray;">Not Assigned</span>
-                {% endif %}
-            </td>
+                
+    <div>
+
+    {% if student.signup_courses %}
+        <span class="badge">{{ student.signup_courses[0] }}</span>
+    {% else %}
+        <span>No signup course</span>
+    {% endif %}
+    </div>
         </tr>
 
         {% endfor %}

@@ -221,3 +221,43 @@ body{
 .toast.hide {
     opacity: 0;
 }
+
+/* Dropdown Styling */
+.input-group select{
+    width: 100%;
+    padding: 15px 15px 15px 50px;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    font-size: 15px;
+    background: white;
+    color: #111827;
+    transition: 0.3s;
+    appearance: none; /* removes default arrow styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+/* Focus effect (same as input) */
+.input-group select:focus{
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+}
+
+/* Optional: make dropdown icon align properly */
+.input-group select option{
+    padding: 10px;
+}
+
+.input-group{
+    position: relative;
+}
+
+/* dropdown arrow */
+.input-group select{
+    background-image: url("https://cdn-icons-png.flaticon.com/512/32/32195.png");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 14px;
+}

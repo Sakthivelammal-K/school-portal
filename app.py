@@ -1,14 +1,20 @@
 from flask import Flask, render_template, request, redirect, session, flash
-from flask import Flask, flash
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
 import datetime
-from email.mime.text import MIMEText
-import smtplib
 import random
+import smtplib
+from email.mime.text import MIMEText
+
+def get_student(username):
+    return students.find_one({"username": username})
+
+def get_teacher(username):
+    return teachers.find_one({"username": username})
+
+def get_courses():
+    return list(courses.find())
 
 app = Flask(__name__)
 app.secret_key = "secret123"
@@ -161,8 +167,9 @@ def update_password():
 
 # ---------------- SIGNUP PAGE ----------------
 @app.route('/signup')
-def signup_page():
-    return render_template("signup.html")
+def signup():
+    all_courses = list(courses.find())
+    return render_template("signup.html", courses=all_courses)
 
 # ---------------- STUDENT SIGNUP ----------------
 @app.route('/student_signup', methods=['POST'])
@@ -173,22 +180,44 @@ def student_signup():
     course = request.form['course']
     password = request.form['password']
 
-    existing = students.find_one({"username": username})
+    existing = students.find_one({
+        "username": username
+    })
 
     if existing:
         flash("Student already exists", "error")
         return redirect('/signup')
 
     hashed_password = generate_password_hash(password)
+
+    # FIND COURSE
+    course_data = courses.find_one({
+        "course_name": course
+    })
+
+    # IF COURSE NOT FOUND
+    if not course_data:
+
+        flash("Course not found", "error")
+        return redirect('/signup')
+
+    # INSERT STUDENT
     students.insert_one({
 
-    "username": username,
-    "email": email,
-    "course": course,
-    "courses": [],   # IMPORTANT
-    "password": hashed_password
+        "username": username,
+        "email": email,
 
-})
+"courses": [
+    {
+        "course_name": course_data["course_name"],
+        "course_description": course_data["course_description"],
+        "source": "signup"
+    }
+],
+
+        "password": hashed_password
+
+    })
 
     session['student'] = username
 
@@ -506,9 +535,10 @@ def enroll_course():
         {
             "$addToSet": {
                 "courses": {
-                    "course_name": course["course_name"],
-                    "course_description": course["course_description"]
-                }
+    "course_name": course["course_name"],
+    "course_description": course["course_description"],
+    "source": "settings"
+}
             }
         }
     )
@@ -595,11 +625,11 @@ def student_courses():
     if 'student' not in session:
         return redirect('/')
 
-    student = students.find_one({"username": session['student']})
+    student = students.find_one({
+        "username": session['student']
+    })
 
     enrolled_courses = student.get("courses", [])
-
-    print("DEBUG:", enrolled_courses)  # 👈 IMPORTANT
 
     return render_template(
         "student_courses.html",
@@ -616,16 +646,34 @@ def logout():
 # ---------------- TEACHER STUDENTS ----------------
 @app.route('/teacher_students')
 def teacher_students():
-    if 'teacher' in session:
 
-        all_students = students.find()
+    if 'teacher' not in session:
+        return redirect('/')
+
+    all_students = list(students.find())
+
+    for student in all_students:
+        courses_data = student.get("courses", [])
+
+        signup_courses = []
+
+        for c in courses_data:
+
+            # if format is correct dict
+            if isinstance(c, dict) and "course_name" in c:
+                signup_courses.append(c["course_name"])
+
+            # if old format is string
+            elif isinstance(c, str):
+                signup_courses.append(c)
+
+        student["signup_courses"] = signup_courses
 
         return render_template(
-            'teacher_students.html',
-            students=all_students,
-            username=session['teacher']
-        )
-
+        'teacher_students.html',
+        students=all_students,
+        username=session['teacher']
+    )
     return redirect('/')
 # ---------------- TEACHER CLASSES ----------------
 @app.route('/teacher_classes')
@@ -783,4 +831,3 @@ def edit_course(course_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
