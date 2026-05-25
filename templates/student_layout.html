@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='teacher_dashboard.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>Student Portal</h2>
+        </div>
+
+        <ul>
+
+            <a href="/student_dashboard">
+                <li><i class="fa-solid fa-house"></i> Dashboard</li>
+            </a>
+
+            <a href="/student_courses">
+                <li><i class="fa-solid fa-book"></i> Courses</li>
+            </a>
+
+            <a href="/assignments">
+                <li><i class="fa-solid fa-file"></i> Assignments</li>
+            </a>
+
+            <a href="/student_setting">
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </li>
+            </a>
+
+            <a href="/logout">
+                <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            </a>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- PAGE CONTENT -->
+    {% block content %}{% endblock %}
+
+</div>
+</body>
+</html>

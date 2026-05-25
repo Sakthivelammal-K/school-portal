@@ -22,7 +22,7 @@
 </head>
 
 <body>
-
+<div id="toast-container"></div>
 <div class="container">
 
     <!-- LEFT SECTION -->
@@ -103,6 +103,17 @@
                     <input type="email"
                     name="email"
                     placeholder="Student Email"
+                    required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-book"></i>
+
+                    <input type="text"
+                    name="course"
+                    placeholder="Course (e.g. Python, Java)"
                     required>
 
                 </div>
@@ -199,6 +210,31 @@
 <!-- JAVASCRIPT -->
 
 <script>
+
+function showToast(message) {
+
+    let toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+
+    document.getElementById("toast-container").appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("hide");
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+const messages = JSON.parse('{{ get_flashed_messages(with_categories=true) | tojson | safe }}');
+
+window.onload = function () {
+
+    if (messages && messages.length > 0) {
+
+        messages.forEach(msg => showToast(msg[1]));
+
+    }
+};
 
 function showStudent(){
 

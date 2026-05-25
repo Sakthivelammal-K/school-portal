@@ -1,245 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
+{% block content %}
 
-    <meta charset="UTF-8">
+<style>
 
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
+.dashboard-header{
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    padding: 35px;
+    border-radius: 24px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
 
-    <title>Teacher Dashboard</title>
+.dashboard-header h1{
+    font-size: 42px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='teacher_dashboard.css') }}">
+.dashboard-header p{
+    font-size: 17px;
+    opacity: 0.9;
+}
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+.dashboard-icon{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+.dashboard-icon i{
+    font-size: 42px;
+    color: white;
+}
 
-</head>
+.section-title{
+    margin-bottom: 25px;
+}
 
-<body>
+.section-title h2{
+    font-size: 34px;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
 
-<div class="dashboard">
+.section-title p{
+    color: #64748b;
+    font-size: 16px;
+}
 
-    <!-- SIDEBAR -->
+.stats{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 28px;
+}
 
-    <div class="sidebar">
+.stat-card{
+    background: white;
+    padding: 30px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: 0.35s;
+    border: 1px solid #e2e8f0;
+}
 
-        <div class="logo">
+.stat-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 14px 30px rgba(37,99,235,0.15);
+}
 
-            <h2>EduPortal</h2>
+.stat-card::before{
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: rgba(37,99,235,0.05);
+    border-radius: 50%;
+    top: -40px;
+    right: -40px;
+}
 
+.stat-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.stat-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#dbeafe,#bfdbfe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-icon i{
+    font-size: 30px;
+    color: #2563eb;
+}
+
+.stat-number{
+    font-size: 46px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.stat-card h3{
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+.stat-card p{
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+</style>
+
+<!-- SECTION TITLE -->
+
+<div class="section-title">
+
+    <h2>Dashboard</h2>
+
+    <p>
+        Monitor students, courses and assignments professionally
+    </p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+    <!-- STUDENTS -->
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+                <h3>Total Students</h3>
+
+            <div class="stat-number">
+                {{ total_students }}
+            </div>
         </div>
-
-        <ul>
-
-            <a href="/teacher_dashboard">
-
-                <li class="active">
-
-                    <i class="fa-solid fa-house"></i>
-                    Dashboard
-
-                </li>
-
-            </a>
-
-            <a href="/teacher_students">
-
-                <li>
-
-                    <i class="fa-solid fa-users"></i>
-                    Students
-
-                </li>
-
-            </a>
-
-            <a href="/teacher_classes">
-
-                <li>
-
-                    <i class="fa-solid fa-book"></i>
-                    Classes
-
-                </li>
-
-            </a>
-
-            <a href="/teacher_assignments">
-
-                <li>
-
-                    <i class="fa-solid fa-file"></i>
-                    Assignments
-
-                </li>
-
-            </a>
-
-            <a href="/teacher_reports">
-
-                <li>
-
-                    <i class="fa-solid fa-chart-line"></i>
-                    Reports
-
-                </li>
-
-            </a>
-
-            <a href="/logout">
-
-                <li>
-
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    Logout
-
-                </li>
-
-            </a>
-
-        </ul>
 
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- ASSIGNMENTS -->
 
-    <div class="main-content">
+    <div class="stat-card">
 
-        <!-- TOPBAR -->
+        <div class="stat-top">
 
-        <div class="topbar">
-
-            <div>
-
-                <h1>
-                    Welcome, {{ username }}
-                </h1>
-
-                <p>
-                    Manage students and classes professionally
-                </p>
-
+            <div class="stat-icon">
+                <i class="fa-solid fa-file-lines"></i>
             </div>
 
-            <div class="profile">
-
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png">
-
+            <h3>Total Assignments</h3>
+            <div class="stat-number">
+                {{ total_assignments }}
             </div>
 
         </div>
 
-        <!-- STATS -->
 
-        <div class="stats">
+    </div>
 
-            <div class="stat-card">
+    <!-- ENROLLED COURSE -->
 
-                <i class="fa-solid fa-users"></i>
+    <div class="stat-card">
 
-                <div>
+        <div class="stat-top">
 
-                    <h2>120</h2>
-
-                    <p>Total Students</p>
-
-                </div>
-
+            <div class="stat-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
             </div>
 
-            <div class="stat-card">
-
-                <i class="fa-solid fa-book"></i>
-
-                <div>
-
-                    <h2>8</h2>
-
-                    <p>Classes</p>
-
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-file"></i>
-
-                <div>
-
-                    <h2>15</h2>
-
-                    <p>Assignments</p>
-
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-chart-line"></i>
-
-                <div>
-
-                    <h2>95%</h2>
-
-                    <p>Performance</p>
-
-                </div>
-
+            <h3>Enrolled Course</h3>
+            <div class="stat-number">
+                {{ course }}
             </div>
 
         </div>
 
-        <!-- QUICK ACTIONS -->
-
-        <div class="actions-section">
-
-            <div class="section-header">
-
-                <h2>Quick Actions</h2>
-
-            </div>
-
-            <div class="actions">
-
-                <div class="action-card">
-
-                    <i class="fa-solid fa-user-plus"></i>
-
-                    <h3>Add Student</h3>
-
-                </div>
-
-                <div class="action-card">
-
-                    <i class="fa-solid fa-book-open"></i>
-
-                    <h3>Create Class</h3>
-
-                </div>
-
-                <div class="action-card">
-
-                    <i class="fa-solid fa-upload"></i>
-
-                    <h3>Upload Assignment</h3>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
 </div>
 
-</body>
-</html>
+{% endblock %}

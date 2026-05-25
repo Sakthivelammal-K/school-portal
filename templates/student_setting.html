@@ -1,0 +1,174 @@
+{% extends "student_layout.html" %}
+
+{% block content %}
+
+<style>
+
+.settings-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.settings-card{
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.page-header{
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+}
+
+.page-header h2{
+    margin: 0;
+    font-size: 26px;
+}
+
+.page-header p{
+    color: gray;
+    margin-top: 5px;
+}
+
+.input-group{
+    margin-top: 15px;
+}
+
+.input-group input,
+.input-group select{
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.btn{
+    margin-top: 15px;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background: #1d4ed8;
+}
+
+.course-box{
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.remove-btn{
+    background: #ef4444;
+    margin-top: 8px;
+}
+
+</style>
+<div class="settings-wrapper">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h2>Settings</h2>
+        <p>Manage your profile and courses</p>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="settings-card">
+
+        <h3>Profile Info</h3><br>
+
+        <p><b>Username:</b> {{ user.username }}</p>
+
+        {% if user.email %}
+            <p><b>Email:</b> {{ user.email }}</p>
+        {% endif %}
+
+    </div>
+
+    <!-- UPDATE USERNAME -->
+    <div class="settings-card">
+
+        <h3>Update Username</h3>
+
+        <form action="/update_settings" method="POST">
+
+            <div class="input-group">
+                <input type="text" name="new_username"
+                       value="{{ user.username }}" required>
+            </div>
+
+            <button class="btn" type="submit">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- ENROLL COURSE -->
+    <div class="settings-card">
+
+        <h3>Available Courses</h3>
+
+        <form action="/enroll_course" method="POST">
+
+            <div class="input-group">
+
+                <select name="course_name" required>
+
+                    {% for course in courses %}
+                        <option value="{{ course.course_name }}">
+                            {{ course.course_name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <button class="btn" type="submit">
+                Enroll Course
+            </button>
+
+        </form>
+
+    </div>
+{% if enrolled_courses and enrolled_courses|length > 0 %}
+
+    {% for course in enrolled_courses %}
+
+        <div class="course-box">
+
+            <b>{{ course.course_name }}</b>
+            <p>{{ course.course_description }}</p>
+
+            <form action="/unenroll_course" method="POST">
+                <input type="hidden" name="course_name"
+                       value="{{ course.course_name }}">
+
+                <button class="btn remove-btn" type="submit">
+                    Remove
+                </button>
+            </form>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+    <p>No courses enrolled yet.</p>
+{% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

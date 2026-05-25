@@ -21,15 +21,8 @@
 
 <body>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+<div id="toast-container"></div>
+
 <div class="main-container">
 
     <!-- Left Side -->
@@ -62,36 +55,19 @@
                 Continue your learning journey
             </p>
 
-            <!-- Tabs -->
+            <!-- Single Login Form -->
 
-            <div class="tabs">
-
-                <button class="tab-btn active"
-                onclick="showStudent()">
-                    Student
-                </button>
-
-                <button class="tab-btn"
-                onclick="showTeacher()">
-                    Teacher
-                </button>
-
-            </div>
-
-            <!-- Student Login -->
-
-            <form id="studentForm"
-            action="/student_login"
+            <form action="/login"
             method="POST"
             autocomplete="off">
 
                 <div class="input-group">
 
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-envelope"></i>
 
-                    <input type="text"
-                    name="username"
-                    placeholder="Student Username"
+                    <input type="email"
+                    name="email"
+                    placeholder="Enter Email"
                     required>
 
                 </div>
@@ -109,44 +85,7 @@
 
                 <button type="submit"
                 class="login-btn">
-                    Login as Student
-                </button>
-
-            </form>
-
-            <!-- Teacher Login -->
-
-            <form id="teacherForm"
-            action="/teacher_login"
-            method="POST"
-            style="display:none;"
-            autocomplete="off">
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-user-tie"></i>
-
-                    <input type="text"
-                    name="username"
-                    placeholder="Teacher Username"
-                    required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <i class="fa-solid fa-lock"></i>
-
-                    <input type="password"
-                    name="password"
-                    placeholder="Password"
-                    required>
-
-                </div>
-
-                <button type="submit"
-                class="login-btn">
-                    Login as Teacher
+                    Login
                 </button>
 
             </form>
@@ -172,35 +111,33 @@
 
 <script>
 
-function showStudent(){
+function showToast(message) {
 
-    document.getElementById("studentForm")
-    .style.display = "block";
+    let toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
 
-    document.getElementById("teacherForm")
-    .style.display = "none";
+    document.getElementById("toast-container").appendChild(toast);
 
-    document.querySelectorAll(".tab-btn")[0]
-    .classList.add("active");
-
-    document.querySelectorAll(".tab-btn")[1]
-    .classList.remove("active");
+    setTimeout(() => {
+        toast.classList.add("hide");
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 }
 
-function showTeacher(){
+</script>
 
-    document.getElementById("teacherForm")
-    .style.display = "block";
+<script>
 
-    document.getElementById("studentForm")
-    .style.display = "none";
+const messages = JSON.parse('{{ get_flashed_messages(with_categories=true) | tojson | safe }}');
 
-    document.querySelectorAll(".tab-btn")[1]
-    .classList.add("active");
+window.onload = function () {
 
-    document.querySelectorAll(".tab-btn")[0]
-    .classList.remove("active");
-}
+    if (messages && messages.length > 0) {
+
+        messages.forEach(msg => showToast(msg[1]));
+    }
+};
 
 </script>
 

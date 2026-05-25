@@ -199,3 +199,25 @@ body{
         width:100%;
     }
 }
+
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: #ff4d4d;
+    color: white;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.toast.hide {
+    opacity: 0;
+}

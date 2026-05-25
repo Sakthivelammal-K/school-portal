@@ -1,46 +1,235 @@
-<!DOCTYPE html>
-<html>
+{% if role == "student" %}
+    {% extends "student_layout.html" %}
+{% else %}
+    {% extends "layout.html" %}
+{% endif %}
 
-<head>
+{% block content %}
 
-    <title>Settings</title>
+<style>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='module.css') }}">
+.settings-wrapper{
+    padding: 10px 5px;
+}
 
-</head>
+.settings-header{
+    margin-bottom: 25px;
+}
 
-<body>
+.settings-header h2{
+    font-size: 30px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+}
 
-<div class="page">
+.settings-header p{
+    color: #6b7280;
+    font-size: 15px;
+}
 
-    <h1>Settings</h1>
+.settings-grid{
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 25px;
+}
 
-    <div class="settings-box">
+.settings-card{
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
 
-        <form action="/update_settings" method="POST">
+.profile-top{
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-            <input type="text"
-            name="new_username"
-            placeholder="Change Username"
-            required>
+.profile-top img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
 
-            <input type="password"
-            name="new_password"
-            placeholder="Change Password"
-            required>
+.profile-top h3{
+    font-size: 22px;
+    color: #111827;
+    margin-bottom: 5px;
+}
 
-            <button type="submit">
+.profile-top p{
+    color: #6b7280;
+    font-size: 14px;
+}
 
-                Save Changes
+.info-box{
+    background: #f9fafb;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
 
-            </button>
+.info-box span{
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
 
-        </form>
+.info-box b{
+    color: #111827;
+    font-size: 15px;
+}
+
+.form-title{
+    font-size: 22px;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+.input-group{
+    margin-bottom: 20px;
+}
+
+.input-group label{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.input-group input{
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus{
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.update-btn{
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.update-btn:hover{
+    background: #1d4ed8;
+}
+
+@media(max-width: 900px){
+
+    .settings-grid{
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+<div class="settings-wrapper">
+
+    <div class="settings-header">
+        <h2>Account Settings</h2>
+        <p>Manage your profile and account information</p>
+    </div>
+
+    <div class="settings-grid">
+
+        <!-- LEFT PROFILE CARD -->
+        <div class="settings-card">
+
+            <div class="profile-top">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+                <h3>{{ user.username }}</h3>
+
+                <p>
+                    {% if role == "student" %}
+                        Student Account
+                    {% else %}
+                        Teacher Account
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <div class="info-box">
+                <span>Username</span>
+                <b>{{ user.username }}</b>
+            </div>
+
+            {% if user.email %}
+            <div class="info-box">
+                <span>Email Address</span>
+                <b>{{ user.email }}</b>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT FORM CARD -->
+        <div class="settings-card">
+
+            <h3 class="form-title">
+                Update Profile
+            </h3>
+
+            <form action="/update_settings" method="POST">
+
+                <div class="input-group">
+
+                    <label>New Username</label>
+
+                    <input
+                        type="text"
+                        name="new_username"
+                        value="{{ user.username }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>New Password</label>
+
+                    <input
+                        type="password"
+                        name="new_password"
+                        placeholder="Enter new password"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="update-btn">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
 
 </div>
 
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% if session.get('student') %}
+
+<ul>
+    <li><a href="/student_dashboard">Dashboard</a></li>
+    <li><a href="/courses">Courses</a></li>
+    <li><a href="/assignments">Assignments</a></li>
+    <li><a href="/progress">Progress</a></li>
+    <li><a href="/settings">Settings</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+
+{% endif %}
+
+{% if session.get('teacher') %}
+
+<ul>
+    <li><a href="/teacher_dashboard">Dashboard</a></li>
+    <li><a href="/teacher_classes">Classes</a></li>
+    <li><a href="/teacher_students">Students</a></li>
+    <li><a href="/teacher_assignments">Assignments</a></li>
+    <li><a href="/teacher_reports">Reports</a></li>
+    <li><a href="/settings">Settings</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+
+{% endif %}

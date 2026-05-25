@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
+{% block content %}
 
-    <title>Students</title>
+<div class="page-header">
+    <h2>Students</h2>
+    <p>Manage and view all registered students</p>
+</div>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='teacher_modules.css') }}">
+<div class="card">
 
-</head>
-
-<body>
-
-<div class="page">
-
-    <h1>Students List</h1>
+    <h3>Student List</h3>
 
     <table>
 
         <tr>
-
-            <th>Username</th>
-            <th>Email</th>
-
+            <th>Student Name</th>
+            <th>Course</th>
         </tr>
 
         {% for student in students %}
 
         <tr>
-
-            <td>{{ student.username }}</td>
-            <td>{{ student.email }}</td>
-
+            <td><b>{{ student.username }}</b></td>
+            <td>
+                {% if student.course %}
+                    {{ student.course }}
+                {% else %}
+                    <span style="color: gray;">Not Assigned</span>
+                {% endif %}
+            </td>
         </tr>
 
         {% endfor %}
@@ -40,5 +37,4 @@
 
 </div>
 
-</body>
-</html>
+{% endblock %}

@@ -1,50 +1,216 @@
-<!DOCTYPE html>
-<html>
+{% extends "student_layout.html" %}
 
-<head>
+{% block content %}
 
-    <title>Courses</title>
+<style>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='module.css') }}">
+.course-wrapper{
+    padding: 10px 5px;
+}
 
-</head>
+.course-header{
+    margin-bottom: 25px;
+}
 
-<body>
+.course-header h2{
+    font-size: 30px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+}
 
-<div class="page">
+.course-header p{
+    color: #6b7280;
+    font-size: 15px;
+}
 
-    <h1>My Courses</h1>
+.course-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
 
-    <div class="cards">
+.course-card{
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
 
-        <div class="card">
+.course-card:hover{
+    transform: translateY(-5px);
+}
 
-            <h2>Python Programming</h2>
+.course-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
 
-            <p>Flask + MongoDB Full Stack</p>
+.course-icon{
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    background: rgba(37,99,235,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        </div>
+.course-icon i{
+    color: #2563eb;
+    font-size: 24px;
+}
 
-        <div class="card">
+.course-status{
+    background: #dbeafe;
+    color: #2563eb;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-            <h2>Web Development</h2>
+.course-card h3{
+    font-size: 22px;
+    color: #111827;
+    margin-bottom: 12px;
+}
 
-            <p>HTML, CSS, JavaScript</p>
+.course-card p{
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
 
-        </div>
+/* FOOTER */
 
-        <div class="card">
+.course-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-            <h2>Database Systems</h2>
+/* BUTTON */
 
-            <p>MongoDB & NoSQL</p>
+.view-course-btn{
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        </div>
+.view-course-btn:hover{
+    background: #1d4ed8;
+}
+
+/* EMPTY */
+
+.empty-box{
+    background: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.empty-box i{
+    font-size: 55px;
+    color: #9ca3af;
+    margin-bottom: 15px;
+}
+
+.empty-box h3{
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.empty-box p{
+    color: #6b7280;
+}
+
+</style>
+
+<div class="course-wrapper">
+
+    <div class="course-header">
+
+        <h2>Courses</h2>
+
+        <p>
+            View and manage your enrolled courses
+        </p>
 
     </div>
 
+    {% if courses %}
+
+    <div class="course-grid">
+
+        {% for course in courses %}
+
+        <div class="course-card">
+
+            <div class="course-top">
+
+                <div class="course-icon">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+
+                <div class="course-status">
+                    Enrolled
+                </div>
+
+            </div>
+
+            <h3>{{ course.course_name }}</h3>
+
+            <p>
+                {{ course.course_description }}
+            </p>
+
+            <div class="course-footer">
+
+                <a href="/course/{{ course._id }}"
+                   class="view-course-btn">
+
+                    View Course
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-box">
+
+        <i class="fa-solid fa-book-open-reader"></i>
+
+        <h3>No Courses Available</h3>
+
+        <p>
+            Courses assigned by teachers will appear here.
+        </p>
+
+    </div>
+
+    {% endif %}
+
 </div>
 
-</body>
-</html>
+{% endblock %}

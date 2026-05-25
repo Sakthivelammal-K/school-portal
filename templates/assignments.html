@@ -1,42 +1,193 @@
-<!DOCTYPE html>
-<html>
+{% extends "student_layout.html" %}
 
-<head>
+{% block content %}
 
-    <title>Assignments</title>
+<style>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='module.css') }}">
+.assignment-wrapper{
+    padding: 10px 5px;
+}
 
-</head>
+.assignment-header{
+    margin-bottom: 25px;
+}
 
-<body>
+.assignment-header h2{
+    font-size: 30px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+}
 
-<div class="page">
+.assignment-header p{
+    color: #6b7280;
+    font-size: 15px;
+}
 
-    <h1>Assignments</h1>
+.assignment-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
 
-    <div class="cards">
+.assignment-card{
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
 
-        <div class="card">
+.assignment-card:hover{
+    transform: translateY(-5px);
+}
 
-            <h2>Flask Project</h2>
+.assignment-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
 
-            <p>Due Date: 25 May</p>
+.assignment-icon{
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    background: rgba(37,99,235,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.assignment-icon i{
+    color: #2563eb;
+    font-size: 24px;
+}
+
+.assignment-status{
+    background: #dcfce7;
+    color: #15803d;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.assignment-card h3{
+    font-size: 21px;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.assignment-card p{
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.assignment-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deadline{
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.empty-box{
+    background: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.empty-box i{
+    font-size: 55px;
+    color: #9ca3af;
+    margin-bottom: 15px;
+}
+
+.empty-box h3{
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.empty-box p{
+    color: #6b7280;
+}
+
+</style>
+
+<div class="assignment-wrapper">
+
+    <div class="assignment-header">
+        <h2>Assignments</h2>
+        <p>View and manage your latest assignments</p>
+    </div>
+
+    {% if assignments %}
+
+    <div class="assignment-grid">
+
+        {% for a in assignments %}
+
+        <div class="assignment-card">
+
+            <div class="assignment-top">
+
+                <div class="assignment-icon">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+
+                <div class="assignment-status">
+                    Active
+                </div>
+
+            </div>
+
+            <h3>{{ a.title }}</h3>
+
+            <p>
+                {{ a.description }}
+            </p>
+
+            <div class="assignment-footer">
+
+                <div class="deadline">
+                    Deadline: {{ a.deadline }}
+                </div>
+
+            </div>
 
         </div>
 
-        <div class="card">
-
-            <h2>MongoDB Task</h2>
-
-            <p>Due Date: 30 May</p>
-
-        </div>
+        {% endfor %}
 
     </div>
 
+    {% else %}
+
+    <div class="empty-box">
+
+        <i class="fa-solid fa-file-circle-xmark"></i>
+
+        <h3>No Assignments Available</h3>
+
+        <p>
+            Assignments created by teachers will appear here.
+        </p>
+
+    </div>
+
+    {% endif %}
+
 </div>
 
-</body>
-</html>
+{% endblock %}

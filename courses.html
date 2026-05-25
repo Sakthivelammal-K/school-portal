@@ -1,0 +1,28 @@
+{% extends "student_layout.html" %}
+
+{% block content %}
+
+<h1>Available Courses</h1>
+
+<div class="cards">
+
+    {% for course in courses %}
+
+    <div class="card">
+
+        <h2>{{ course.course_name }}</h2>
+
+        <p>{{ course.course_description }}</p>
+
+        <small>
+            Teacher:
+            {{ course.teacher }}
+        </small>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

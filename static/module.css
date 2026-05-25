@@ -82,3 +82,83 @@ body{
     color:white;
     cursor:pointer;
 }
+
+.page{
+    padding: 30px;
+}
+
+.page-header h1{
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.page-header p{
+    color: gray;
+    margin-bottom: 30px;
+}
+
+.cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card{
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+}
+
+.card h2{
+    margin-bottom: 15px;
+}
+
+.card p{
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.view-btn{
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.view-btn:hover{
+    background: #1d4ed8;
+}
+
+.course-details{
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.course-details h1{
+    margin-bottom: 20px;
+}
+
+.course-details p{
+    color: gray;
+    line-height: 1.7;
+}
+
+.start-btn{
+    margin-top: 20px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
