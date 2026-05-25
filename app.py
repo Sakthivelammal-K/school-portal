@@ -653,21 +653,11 @@ def teacher_students():
     all_students = list(students.find())
 
     for student in all_students:
-        courses_data = student.get("courses", [])
-
-        signup_courses = []
-
-        for c in courses_data:
-
-            # if format is correct dict
-            if isinstance(c, dict) and "course_name" in c:
-                signup_courses.append(c["course_name"])
-
-            # if old format is string
-            elif isinstance(c, str):
-                signup_courses.append(c)
-
-        student["signup_courses"] = signup_courses
+        student["signup_courses"] = [
+            c["course_name"]
+            for c in student.get("courses", [])
+            if c.get("source") == "signup"
+        ]
 
         return render_template(
         'teacher_students.html',
